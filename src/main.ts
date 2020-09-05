@@ -15,7 +15,7 @@ const Start = async () => {
   const app = express();
 
   const corsOptions = {
-    origin: "http://localhost:4200/",
+    origin: "*",
     credentials: true // <-- REQUIRED backend setting
   };
 
