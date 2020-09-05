@@ -1,0 +1,23 @@
+type MeetingsQuery {
+  read( Id: ID! ): Meeting
+}
+
+type MeetingsMutation {
+  create(meeting: MeetingInput ): Meeting
+  update(id: ID!, meeting: MeetingInput ): Meeting
+}
+
+type Meeting {
+  id: ID
+  name: String
+  from: String
+  to: String
+  channelId: ID
+}
+
+input MeetingInput {
+  name: String!
+  from: String!
+  to: String!
+  channelId: ID!
+}

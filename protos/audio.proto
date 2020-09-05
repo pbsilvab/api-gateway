@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package audio;
+
+service Audio {
+    rpc SetAudioContentRequest(stream AudioRequest) returns (AudioStatusResponse);
+}
+
+message AudioRequest {
+    string from = 1;
+    string to = 2;
+    string file = 3;
+}
+
+message AudioStatusResponse {
+    string id = 1;
+}

@@ -1,0 +1,20 @@
+type ChannelsQuery {
+  read( Id: ID! ): Channel
+}
+
+type ChannelsMutation {
+  create(channel: ChannelInput ): Channel
+  update(id: ID!, channel: ChannelInput ): Channel
+}
+
+type Channel {
+  id: ID
+  name: String
+  groupId: ID
+  meetings: [Meeting]
+}
+
+input ChannelInput {
+  name: String!
+  groupId: ID!
+}

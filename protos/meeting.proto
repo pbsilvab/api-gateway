@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package meeting;
+
+service Meeting {
+    rpc SetMeeting(SetMeetingRequest) returns (MeetingResponse);
+    rpc ReadMeeting(ReadMeetingRequest) returns (MeetingResponse);
+    rpc ReadChannelMeeting(ReadChannelMeetingRequest) returns (ChannelMeetingResponse);
+}
+
+message SetMeetingRequest {
+    string id = 1;
+    string name = 2;
+    string from = 3;
+    string to = 4;
+    string channel_id = 5;
+}
+
+message MeetingResponse {
+    string id = 1;
+    string name = 2;
+    string from = 3;
+    string to = 4;
+    string channel_id = 5;
+}
+
+message ReadMeetingRequest {
+    string id = 1;
+}
+
+message ReadChannelMeetingRequest {
+    string channel_id = 1;
+}
+
+message ChannelMeetingResponse {
+    repeated MeetingResponse meetings= 1;
+}

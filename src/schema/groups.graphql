@@ -1,0 +1,58 @@
+type GroupsQuery {
+  read( id: ID! ): Group
+  # Lista de depósitos
+  find(
+    # Cantidad de resultados a incluir en orden ascendente
+    first: Int
+    # Último cursor de la paginación anterior
+    after: ID
+    # Cantidad de resultados a incluir en orden descendente
+    last: Int
+    # Primer cursor de la paginación anterior
+    before: ID
+    # Busca listas de precio cuyos campos especificados contengan el texto a buscar
+    searchTerms: [SearchTermInput]
+    # Filters
+    filters: [FilterInput]
+    # Order
+    order: String
+  ): GroupsConnection!
+
+  # Entrega información con
+  # los filtros que pueden ser aplicados,
+  # los campos sobre los que se puede buscar
+  # y los campos por los que se puede ordenar
+  findSettings: FindSettings!
+}
+
+type GroupsMutation {
+    create(group: GroupInput! ):  Group
+    update(id: ID!, group: GroupInput! ):  Group
+}
+
+type Group {
+  id: ID
+  name: String
+  channels:[Channel]
+}
+
+input GroupInput {
+  name: String!
+}
+
+type GroupsConnection {
+  # Información de la paginación
+  pageInfo: PageInfo!
+  # Resultados de la búsqueda
+  edges: [GroupEdge]!
+  # Total de elementos en EcomSync
+  totalCount: Int!
+}
+
+# Resultado de una búsqueda paginada
+type GroupEdge {
+  # Cursor para paginar a partir de este resultado
+  cursor: String!
+  # Depósitos en EcomSync
+  node: Group!
+}

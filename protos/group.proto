@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+package group;
+
+import "find-settings.proto";
+import "channel.proto";
+
+service Group {
+    rpc SetGroup(SetGroupRequest) returns (GroupResponse);
+    rpc ReadGroup(ReadGroupRequest) returns (GroupResponse);
+    rpc SetUserToGroup(UsertToGroupRequest) returns (UsertToGroupResponse);
+
+    rpc FindGroups(FindGroupsRequest) returns (FindGroupsResponse);
+    rpc FindGroupsSettings (find_settings.EmptyRequest) returns (find_settings.FindSettings);
+}
+
+message SetGroupRequest {
+    string id=1;
+    string name=2;
+}
+
+message GroupResponse {
+    string id=1;
+    string name=2;
+    repeated channel.ChannelResponse channels = 3;
+}
+
+message ReadGroupRequest {
+    string id=1;
+}
+
+message UsertToGroupRequest {
+    string group_id=1;
+    string account_id=2;
+    string role=3;
+}
+
+message UsertToGroupResponse {
+    string group_id = 1;
+}
+
+message FindGroupsRequest {
+    uint32 first = 1;
+    string after = 2;
+    uint32 last = 3;
+    string before = 4;
+    reserved 5;
+    repeated find_settings.FindFilter filters = 6;
+    string order = 7;
+    repeated find_settings.SearchTerm search_terms = 8;
+}
+
+message FindGroupsResponse {
+    find_settings.PageInfo page_info = 1;
+    uint32 total_count = 2;
+    repeated GroupsEdge edges = 3;
+}
+
+message GroupsEdge {
+    string cursor = 1;
+    GroupResponse node = 2;
+}

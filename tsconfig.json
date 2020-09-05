@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "outDir": "./build",
+    "noUnusedParameters": true,
+    "allowSyntheticDefaultImports": true,
+    "allowJs": true,
+    "target": "es5",
+    "moduleResolution": "node",
+    "strict": true,
+    "lib": [
+      "dom",
+      "es2017",
+      "esnext.asynciterable",
+    ],
+    "typeRoots": [
+      "./node_modules/@types",
+      "./typings"
+    ]
+  },
+  "include": [
+    "./src/**/*",
+    "./typings"
+  ]
+}

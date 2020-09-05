@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package channel;
+
+import "meeting.proto";
+
+service Channel {
+    rpc SetChannel(SetChannelRequest) returns (ChannelResponse);
+    rpc ReadChannel(ReadChannelRequest) returns (ChannelResponse);
+    rpc SetUserToChannel(UsertToChannelRequest) returns (UsertToChannelResponse);
+}
+
+message SetChannelRequest {
+    string id=1;
+    string name=2;
+    string group_id=3;
+}
+
+message ChannelResponse {
+    string id=1;
+    string name=2;
+    string group_id=3;
+    repeated meeting.MeetingResponse meetings = 4;
+
+}
+
+message ReadChannelRequest {
+    string id=1;
+}
+
+message UsertToChannelRequest {
+    string chanel_id=1;
+    string account_id=2;
+}
+
+message UsertToChannelResponse {
+    string chanel_id=1;
+}

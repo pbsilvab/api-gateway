@@ -1,0 +1,15 @@
+type Query {
+  groups: GroupsQuery
+
+  channels: ChannelsQuery
+
+  meetings: MeetingsQuery
+}
+
+type Mutation {
+  groups: GroupsMutation
+
+  channels: ChannelsMutation
+
+  meetings: MeetingsMutation
+}

@@ -1,0 +1,51 @@
+syntax = "proto3";
+package find_settings;
+option go_package = "gitlab.com/ecomexperts/protos/pkg/api/find-settings";
+
+message FindSettings {
+  message FilterSetting {
+    message FilterOption {
+      string value = 1;
+      string text = 2;
+    }
+
+    string field = 1;
+    string text = 2;
+    repeated FilterOption options = 3;
+    bool multi = 4;
+  }
+
+  message OrderSetting {
+    string field = 1;
+    string text = 2;
+  }
+
+  repeated string searchable_fields = 1;
+  repeated FilterSetting filters = 2;
+  repeated OrderSetting orders = 3;
+}
+
+message EmptyRequest {}
+
+message FindFilter {
+  string field = 1;
+  string value = 2;
+}
+
+message SearchTerm {
+  enum Match {
+    LIKE = 0;
+    EXACT = 1;
+  }
+
+  repeated string fields = 1;
+  string value = 2;
+  Match match = 3;
+}
+
+message PageInfo {
+  string end_cursor = 1;
+  bool has_next_page = 2;
+  string start_cursor = 3;
+  bool has_previous_page = 4;
+}

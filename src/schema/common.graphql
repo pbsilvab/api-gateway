@@ -1,0 +1,60 @@
+# Información del resultado de la paginación
+type PageInfo {
+  # Cursor para adquirir la página siguiente usando `after` (en caso de haber)
+  endCursor: String
+  # Si hay o no páginas para buscar usando `after` con `endCursor`
+  hasNextPage: Boolean!
+  # Si hay o no páginas para buscar usando `before` con `startCursor`
+  hasPreviousPage: Boolean!
+  # Cursor para adquirir la página anterior usando `before`(en caso de haber)
+  startCursor: String
+}
+
+type FilterOption {
+  value: String!
+  text: String!
+}
+
+type FilterSetting {
+  field: String!
+  text: String!
+  options: [FilterOption]!
+  multi: Boolean!
+}
+
+type OrderSetting {
+  field: String!
+  text: String!
+}
+
+# Entrega información con
+# los filtros que pueden ser aplicados,
+# los campos sobre los que se puede buscar
+# y los campos por los que se puede ordenar
+type FindSettings {
+  # Lista de campos que pueden ser utilizados en el campo `fields` de `SearchTermInput`
+  searchableFields: [String]!
+  # Filtros que pueden ser aplicados
+  filters: [FilterSetting]!
+  # Campos por los que se puede ordenar la búsqueda
+  orders: [OrderSetting]!
+}
+
+input FilterInput {
+  field: String!
+  value: String!
+}
+
+input SearchTermInput {
+  # Campos sobre los que se ha de buscar
+  fields: [String]!
+  # Texto a buscar en los campos
+  value: String!
+  # Forma para efectuar la búsqueda (default es LIKE)
+  match: SearchTermMatch
+}
+
+enum SearchTermMatch {
+  LIKE
+  EXACT
+}
