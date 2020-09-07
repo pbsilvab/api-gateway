@@ -15,8 +15,7 @@ const Start = async () => {
   const app = express();
 
   const corsOptions = {
-    origin: "*",
-    credentials: false // <-- REQUIRED backend setting
+    credentials: true // <-- REQUIRED backend setting
   };
 
   const apolloServer = new ApolloServer({
@@ -25,10 +24,10 @@ const Start = async () => {
     context: ({ req , res }) => ({ req, res})
   });
 
-  apolloServer.applyMiddleware({app, cors: false});
+  apolloServer.applyMiddleware({app, cors: true});
 
-  // app.use(cors(corsOptions));
- // app.options('*', cors());
+  app.use(cors(corsOptions));
+  app.options('*', cors());
 
   const server = createServer(app);
 
