@@ -4,8 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start-dev": "npm run build && ts-node src/main.ts",
     "start": "nodemon --exec ts-node src/main.ts",
     "build-protos": "tools/build-protos.sh",
+    "build": "tsc",
     "build-schema": "node ./tools/build-schema && gql-gen"
   },
   "author": "",
