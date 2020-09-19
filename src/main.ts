@@ -8,6 +8,7 @@ import  * as cors  from 'cors';
 import { resolvers } from "./resolvers";
 import { typeDefs } from "./typeDefs";
 import * as io from 'socket.io';
+import * as fs  from 'fs';
 
 const Start = async () => {
   const app = express();
@@ -30,7 +31,20 @@ const Start = async () => {
 
   let http = require("http").Server(app);
 
-  const socket = io(http);
+  http.listen('4003', () => {
+      console.log('4003 up and running');
+  });
+
+  let https = require("https").Server(app);
+
+  const options = {
+    key: fs.readFileSync('/etc/letsencrypt/live/wetalk.sharkrahs.com/privkey.pem'),
+    cert: fs.readFileSync('/etc/letsencrypt/live/wetalk.sharkrahs.com/fullchain.pem')
+  };
+
+  const appSsl = https.createServer(options);
+
+  const socket = io(appSsl);
 
   socket.on('connection', (socket: any) => {
 
@@ -50,9 +64,10 @@ const Start = async () => {
     });
   });
 
-  http.listen('4003', () => {
-      console.log('up and running');
+  http.listen('4004', () => {
+      console.log('4004 up and running');
   });
+
 }
 
 Start()
