@@ -35,11 +35,12 @@ const Start = async () => {
 
   io.on('connection', socket => {
     console.log('someone connected');
+
       socket.on('join-room', (roomId, userId) => {
+
         console.log(roomId, userId);
         socket.join(roomId);
         socket.to(roomId).broadcast.emit('user-connected', userId);
-
         socket.on('disconect', () => {
             socket.to(roomId).broadcast.emit('user-disconected', userId);
         });
