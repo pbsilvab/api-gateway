@@ -9,6 +9,7 @@ import { resolvers } from "./resolvers";
 import { typeDefs } from "./typeDefs";
 import * as io from 'socket.io';
 import * as fs  from 'fs';
+import https   from 'https';
 
 const Start = async () => {
   const app = express();
@@ -34,8 +35,6 @@ const Start = async () => {
   http.listen('4003', () => {
       console.log('4003 up and running');
   });
-
-  let https = require("https").Server(app);
 
   const options = {
     key: fs.readFileSync('/etc/letsencrypt/live/wetalk.sharkrahs.com/privkey.pem'),
@@ -64,7 +63,7 @@ const Start = async () => {
     });
   });
 
-  http.listen('4004', () => {
+  appSsl.listen('4004', () => {
       console.log('4004 up and running');
   });
 
