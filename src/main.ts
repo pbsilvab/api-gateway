@@ -7,14 +7,9 @@ import { ApolloServer } from 'apollo-server-express';
 import  * as cors  from 'cors';
 import { resolvers } from "./resolvers";
 import { typeDefs } from "./typeDefs";
-import * as socketIo from 'socket.io';
-
 
 const Start = async () => {
-
   const app = express();
-
-
 
   const corsOptions = {
     credentials: true // <-- REQUIRED backend setting
@@ -32,9 +27,9 @@ const Start = async () => {
   app.options('*', cors());
 
 
-  let http = require("http").Server(app);
+  let https = require("https").Server(app) ;
 
-  const io = require("socket.io")(http);
+  const io = require("socket.io")(https);
 
   io.on('connection', (socket: any) => {
     console.log('someone connected');
@@ -43,14 +38,17 @@ const Start = async () => {
 
         console.log(roomId, userId);
         socket.join(roomId);
+
         socket.to(roomId).broadcast.emit('user-connected', userId);
+
         socket.on('disconect', () => {
             socket.to(roomId).broadcast.emit('user-disconected', userId);
         });
+
     });
   });
 
-  http.listen('4003', () => {
+  https.listen('4003', () => {
       console.log('up and running');
   });
 }
