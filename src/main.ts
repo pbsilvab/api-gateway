@@ -2,14 +2,13 @@ import "reflect-metadata";
 import { config as loadEnv } from "dotenv";
 loadEnv();
 import  * as express  from 'express';
-import  { createServer }  from 'http';
 import { ApolloServer } from 'apollo-server-express';
 import  * as cors  from 'cors';
 import { resolvers } from "./resolvers";
 import { typeDefs } from "./typeDefs";
 import * as io from 'socket.io';
 import * as fs  from 'fs';
-import https   from 'https';
+import { createServer } from 'https';
 
 const Start = async () => {
   const app = express();
@@ -41,7 +40,7 @@ const Start = async () => {
     cert: fs.readFileSync('/etc/letsencrypt/live/wetalk.sharkrahs.com/fullchain.pem')
   };
 
-  const appSsl = https.createServer(options);
+  const appSsl = createServer(options);
 
   const socket = io(appSsl);
 
