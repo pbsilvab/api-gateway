@@ -14,6 +14,8 @@ const Start = async () => {
 
   const app = express();
 
+
+
   const corsOptions = {
     credentials: true // <-- REQUIRED backend setting
   };
@@ -29,14 +31,15 @@ const Start = async () => {
   app.use(cors(corsOptions));
   app.options('*', cors());
 
-  const server = createServer(app);
 
-  const io = socketIo(server);
+  let http = require("http").Server(app);
 
-  io.on('connection', socket => {
+  const io = require("socket.io")(http);
+
+  io.on('connection', (socket: any) => {
     console.log('someone connected');
 
-      socket.on('join-room', (roomId, userId) => {
+      socket.on('join-room', (roomId: any, userId : any) => {
 
         console.log(roomId, userId);
         socket.join(roomId);
@@ -47,7 +50,7 @@ const Start = async () => {
     });
   });
 
-  server.listen('4003', () => {
+  http.listen('4003', () => {
       console.log('up and running');
   });
 }
